@@ -1,9 +1,7 @@
 package az.mm.spiralmatrix;
 
 import java.util.Scanner;
-
 /**
- *
  * @author MM <mushfiqazeri@gmail.com>
  */
 public class Main22 {
@@ -65,27 +63,9 @@ public class Main22 {
                 case 2: if (++j >= end) return 0; break;
                 case 3: if (--i <= end) return 0; break;
             }
-        
-        /* 
-            switch (index) {
-                case 0: if (isClockwise){if(++j>=end){return 0;}}
-                        else{if(--j<=end) {return 0;}}
-                        break;
-                case 1: if (isClockwise){if(++i>=end){return 0;}}
-                        else{if(++i>=end){return 0;}}
-                        break;
-                case 2: if (isClockwise){if(--j<=end){return 0;}}
-                        else{if(++j>=end) {return 0;}}
-                        break;
-                case 3: if (isClockwise){if(--i<=end){return 0;}}
-                        else{if(--i<=end) {return 0;}}
-                        break;
-            }
-        */
 
         return print(i, j, end, index);
     }
-    
     
     
     private void createMatrix() {
@@ -98,3 +78,24 @@ public class Main22 {
         }
     }
 }
+
+
+
+
+        
+/* 
+    switch (index) {
+        case 0: if (isClockwise){if(++j>=end){return 0;}}
+                else{if(--j<=end) {return 0;}}
+                break;
+        case 1: if (isClockwise){if(++i>=end){return 0;}}
+                else{if(++i>=end){return 0;}}
+                break;
+        case 2: if (isClockwise){if(--j<=end){return 0;}}
+                else{if(++j>=end) {return 0;}}
+                break;
+        case 3: if (isClockwise){if(--i<=end){return 0;}}
+                else{if(--i<=end) {return 0;}}
+                break;
+    }
+*/
