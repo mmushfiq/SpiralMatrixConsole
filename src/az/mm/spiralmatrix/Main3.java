@@ -1,70 +1,68 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package az.mm.spiralmatrix;
 
 import java.util.Scanner;
 
 /**
- *
  * @author MM <mushfiqazeri@gmail.com>
+ * 
+ * Alqoritmin işləmə məntiqi
+ * Əsas 2 qanunauyğunluq var (saat əqrəbi istiqamətində):
+ * 1. istiqamət üzrə - sağ->aşağı->sol->yuxarı təkrarlanır
+ * 2. addımlar üzrə - hər iki istiqamətdən bir gediləcək addımların sayı 1 artır, yəni 1 sağ, 1 aşağı, 2 sol, 2 yuxarı, 3 sağ, 3 aşağı, 4 sol, 4 yuxarı və s. --> 1,1,2,2,3,3,4,4...
+ * 
+ * direction - istiqaməti bildirir, 0-sağ, 1-aşağı, 2-sol, 3-yuxarı
+ * steps - cari istiqamət üzrə (direction) gediləcək addımların sayı
+ * currentStep - ümumi addımlar içərisindən (steps) cari addımın nömrəsini bildirir, cari istiqamət üzrə gediləcək addımların bitib-bitməməsini yoxlamaq üçün istifadə edilir
+ * change - istiqamətin dəyişib dəyişmədiyini yoxlayır, hər 2 istiqamət dəyişikliyindən sonra addımların sayını (steps) bir artırmaq üçün istifadə edilir 
  */
 public class Main3 {
+    private static int row, col, matrix[][];
+    private static boolean isClockwise = true;
     
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Olchunu daxil edin: ");
-        int n = sc.nextInt();
-        int[][] matrix = new int[n][n];
- 
-        fillMatrix(matrix, n);
-        printMatrix(matrix, n);
+        System.out.println("Please enter matrix lengths (example 4 3):");
+        row = sc.nextInt();
+        col = sc.nextInt();
+        createMatrix();
+        printSpiralElements();
     }
  
-    private static void fillMatrix(int[][] matrix, int n){
-        int positionX = n / 2; // The middle of the matrix
-        int positionY = n % 2 == 0 ? (n / 2) - 1 : (n / 2);
+    private static void printSpiralElements(){
+        System.out.println(isClockwise ? "Clockwise:" : "Counter-Clockwise");
+        int i = row%2 == 0 ? row/2-1 : row/2;
+        int j = isClockwise ? col%2 == 0 ? col/2-1 : col/2 : col/2;
+        int direction=0, steps=1, currentStep=0, change=0; 
  
-        int direction = 0; // The initial direction is "down"
-        int stepsCount = 1; // Perform 1 step in current direction
-        int stepPosition = 0; // 0 steps already performed
-        int stepChange = 0; // Steps count changes after 2 steps
+        for (int a = 0; a < row*col; a++){
+            if (i<0 || i>=row || j<0 || j>=col) break; //kvadrat olmayan matrislər üçün bu şərt vacibdir
+            System.out.print(matrix[i][j]+" ");
  
-        for (int i = 0; i < n * n; i++){
-            // Fill the current cell with the current value
-            matrix[positionY][positionX] = i;
- 
-            // Check for direction / step changes
-            if (stepPosition < stepsCount){
-                stepPosition++;
-            } else {
-                stepPosition = 1;
-                if (stepChange == 1){
-                    stepsCount++;
-                }
-                stepChange = (stepChange + 1) % 2;
-                direction = (direction + 1) % 4;
+            if (currentStep < steps) 
+                currentStep++;
+            else {
+                currentStep = 1;
+                if (change == 1) steps++;
+                change = (change+1) % 2;
+                direction = (direction+1) % 4;
             }
- 
-            // Move to the next cell in the current direction
+            
             switch (direction){
-                case 0: positionY++; break;
-                case 1: positionX--; break;
-                case 2: positionY--; break;
-                case 3: positionX++; break;
+                case 0: if(isClockwise) j++; else j--; break;
+                case 1: i++; break;
+                case 2: if(isClockwise) j--; else j++; break;
+                case 3: i--; break;
             }
         }
     }
  
- 
-    private static void printMatrix(int[][] matrix, int n){
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < n; j++)
-                System.out.print(matrix[i][j] + "\t");
+    private static void createMatrix() {
+        matrix = new int[row][col];
+        int value = 1;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) 
+                System.out.print((matrix[i][j] = value++) + "\t");
             System.out.println();
         }
     }
-    
 }

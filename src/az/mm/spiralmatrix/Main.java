@@ -58,15 +58,6 @@ public class Main {
         }
     }
     
-    private boolean printElement(int i, int j) {
-        if (i<0 || i>=row || j<0 || j>=column) return false;
-        System.out.print(matrix[i][j] + " ");
-       return true;
-    }
-
-    
-    
-    
     private void spiralMatrixCounterClockwise() {
         System.out.println("\n\nCounter Clockwise elements:");
         
@@ -97,6 +88,12 @@ public class Main {
             }
             bottom++;
         }
+    }
+    
+    private boolean printElement(int i, int j) {
+        if (i<0 || i>=row || j<0 || j>=column) return false;
+        System.out.print(matrix[i][j] + " ");
+       return true;
     }
 
     private void createMatrix() {
